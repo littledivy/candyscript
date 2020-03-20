@@ -1,0 +1,5 @@
+SET "port": 8000
+GET "/": file: server.joe
+GET "/yo": yo boi!
+POST "/": hello
+# this is a comment
