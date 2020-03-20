@@ -1,4 +1,4 @@
-# Bloom
+# CandyScript
 
 CandyScript is a lightweight yet superfast language for forging small web servers and RestAPIs.
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
