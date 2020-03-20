@@ -1,5 +1,6 @@
 SET "port": 8000
-GET "/": file: server.joe
+GET "/": file: server.candy
 GET "/yo": yo boi!
 POST "/": hello
+GET "/py": python: hi.py
 # this is a comment

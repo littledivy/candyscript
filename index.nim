@@ -4,13 +4,15 @@ var server = newAsyncHttpServer()
 import parseutils
 import strutils
 import parseopt
+import terminal
 
-var sample = readFile("server.candy")
-
+stdout.styledWrite(fgBlue, "CandyScript is ready to show off\n")
+var sample = ""
 for kind, key, val in getOpt():
   case kind
   of cmdArgument:
-    echo("Starting server from:  ", key)
+    stdout.styledWrite(fgYellow, "[START] ")
+    stdout.styledWrite(fgDefault, key&"\n")
     sample = readFile(key)
   of cmdLongOption, cmdShortOption:
     echo "flags not needed"
@@ -21,9 +23,9 @@ var post_list: seq[seq[string]] = @[]
 var port = "8080"
 
 proc cb(req: Request) {.async, gcsafe.} =
-  echo(req.reqMethod," ", req.url.path)
+  echo("\u001b[32m",req.reqMethod,"\u001b[0m"," ", req.url.path)
   if req.url.path.startsWith("/public") and req.reqMethod == HttpGet:
-    var staticFile = readFile("./public"&req.url.path.split("/public")[1])
+    var staticFile = readFile(joinPath(getCurrentDir(),"./public"&req.url.path.split("/public")[1]))
     await req.respond(Http200, staticFile)
   for state in get_list:
     if req.url.path == state[1].split(" ").join() and req.reqMethod == HttpGet:
@@ -38,7 +40,9 @@ proc cb(req: Request) {.async, gcsafe.} =
       await req.respond(Http200, state[2])
 
 proc createServer() =
-  echo("Listening on port: ",port)
+  stdout.styledWrite(fgYellow, "[START] ")
+  stdout.styledWrite(fgDefault, "Listening to requests on port: ")
+  stdout.styledWrite(fgDefault, port&"\n")
   waitFor server.serve(Port(port.parseInt()), cb)
 
 proc parseToken(tk, url, arg: string) =
@@ -49,6 +53,7 @@ proc parseToken(tk, url, arg: string) =
   if arg.split(":")[0].split(" ").join() == "file":
     arg = readFile(arg.split(":")[1].split(" ").join())
   if arg.split(":")[0].split(" ").join() == "python":
+    # TODO: Add python bindings
     arg = arg.split(":")[1].split("{").join().split("}").join()
     excp = "python"
   case tok:
