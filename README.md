@@ -4,6 +4,9 @@ CandyScript is a lightweight yet superfast language for forging small web server
 [![GPLv3 License](https://img.shields.io/badge/License-GPL%20v3-yellow.svg)](https://opensource.org/licenses/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](http://makeapullrequest.com)
 
+## Related
+A maintained fork of `candyscript` by @benob https://github.com/benob/candyscript
+
 ## Features
 
 * Line-by-line parser
@@ -30,7 +33,7 @@ GET "/": Hello, World!
 
 ## Building from source
 
-Use the Nim compiler [nim](https://nim-lang.org) to compile Bloom source code.
+Use the Nim compiler [nim](https://nim-lang.org) to compile the Bloom source code.
 
 This code will run your candyscript server.
 ```bash
